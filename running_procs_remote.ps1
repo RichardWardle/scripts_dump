@@ -17,9 +17,12 @@ try
     ## Apply business logic here for further processing ##
     $results | Export-Csv -Path results.txt
     ## Apply business logic here for further processing ##
+    
+    remove-pssession -session $sess
 }
 catch
 {
     Write-Error Error: $_.Exception.Message
+    remove-pssession -session $sess
     Exit 2
 }
