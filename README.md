@@ -1,7 +1,6 @@
 # scripts_dump
 Dumping ground for a variety of scripts
 
-
 ### running_procs_remote.ps1
 We had a variety of applications that ran as executables on the desktop, that you couldnt interact with remotley. To audit these where a pain, finding out what servers ran what applications, from where and what version it was running. This script will go through the computers in computers.txt. It will get the processes running as per what regex you provide in $processes and dump this to results.txt. You can then apply your business logic there OR even better is script further functionality. You should also change the username in there to be the one your run scripts under, I have left a fake on in there.
 
@@ -18,3 +17,6 @@ This script checks a list of servers from a specified OU (can be modified to tak
 The script will strip out cluster objects for you in the AD query against the get-adcomputer query. You can specify the OU to check with the -OU paramter and the -outputloc will allow you to output your results. Since i only check one OU you could write a script that loops through a list of OU's and passes each OU to this script. You will need to use -append on the out-file section otherwise you will overwrite each time you call the script. This could be modified to check for any series of patches just change the $hotfixes to what you want, alternativley if you want add it as a paramter and you could script it all!
 
 Note: I think the patches on this are up to date but it may not be I tried to cover all inc win7 etc
+
+### visual_studio_installs.ps1
+Dirty script that quickly installed certain visual studio code silently for you depending on 64 or 32 bit (if your 64 bit it also installed 32bit). The files must be named vcredit_ARCH_YYYY.exe and be in visual folder located in where script is being run.
