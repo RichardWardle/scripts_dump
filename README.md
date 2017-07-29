@@ -23,5 +23,7 @@ We had a range of settings that we applied in the registry for our machines: aut
 
 This runs in two modes that is handled via -checkonly [bool]. If its false (default) it will tell you if the setting is set correctly or not (green = good, red = bad). If you make it true then it will check to see if its set correctly and if not it would set it for you (the line will then be magenta - if you ran the script again immediatley it would flag as green)
 
+If you had to apply a setting to all network cards you could right a function that iterates through all the folders in the network settings registry path and then call the checkRegistry function across to set the values you want!
+
 ### visual_studio_installs.ps1
 Dirty script that quickly installed certain visual studio code silently for you depending on 64 or 32 bit (if your 64 bit it also installed 32bit). The files must be named vcredit_ARCH_YYYY.exe and be in visual folder located in where script is being run.
