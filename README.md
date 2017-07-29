@@ -18,5 +18,10 @@ The script will strip out cluster objects for you in the AD query against the ge
 
 Note: I think the patches on this are up to date but it may not be I tried to cover all inc win7 etc
 
+### basic_reg_set.ps1
+We had a range of settings that we applied in the registry for our machines: autologin settings (everything ran in console), network settings and other secret ones! This allows you to pass the path, key name, value expected, type and it will check if that exsists and is set correct. If not it will create it and set the value for you. It is super easy to add to this as you jsut pass your settings to the checkRegistry function and it will handle the rest for you.
+
+This runs in two modes that is handled via -checkonly [bool]. If its false (default) it will tell you if the setting is set correctly or not (green = good, red = bad). If you make it true then it will check to see if its set correctly and if not it would set it for you (the line will then be magenta - if you ran the script again immediatley it would flag as green)
+
 ### visual_studio_installs.ps1
 Dirty script that quickly installed certain visual studio code silently for you depending on 64 or 32 bit (if your 64 bit it also installed 32bit). The files must be named vcredit_ARCH_YYYY.exe and be in visual folder located in where script is being run.
