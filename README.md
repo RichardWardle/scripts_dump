@@ -25,5 +25,8 @@ This runs in two modes that is handled via -checkonly [bool]. If its false (defa
 
 If you had to apply a setting to all network cards you could right a function that iterates through all the folders in the network settings registry path and then call the checkRegistry function across to set the values you want!
 
+### network_config_dump.ps1
+We had a range of servers that were having there subnet moved from 192.168.5.0/24 to 192.168.4.0/23. We had to change every subnet on all those servers to ensure that it could properly talk to the extended subnet (aka 192.168.5.4/24 had issues talking to 192.168.4.230/23). This script pulled the IP settings for some configurations and allowed us to find which servers we still had to change. We could use it to find systems that had been given out there IP address as per DHCP so we could check to see if there was a reservation for the MAC address or if it could randomly change IP address. Just supply C:\computers.txt with your servers you want to query 
+
 ### visual_studio_installs.ps1
 Dirty script that quickly installed certain visual studio code silently for you depending on 64 or 32 bit (if your 64 bit it also installed 32bit). The files must be named vcredit_ARCH_YYYY.exe and be in visual folder located in where script is being run.
