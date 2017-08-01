@@ -8,7 +8,7 @@ $networks = @()
 
 foreach ($ind in $computers)
 {
-  if (Test-WSMan $ind) {
+  if (Test-WSMan $ind -ea SilentlyContinue) {
         try
         {
             $Networks += Get-WmiObject Win32_NetworkAdapterConfiguration -ComputerName $ind -EA SilentlyContinue | select -property DNSHostName, IPAddress, IPSubnet, MACAddress, DefaultIPGateway, DHCPEnabled | ? {$_.IPAddress}
