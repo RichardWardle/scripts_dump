@@ -8,15 +8,18 @@ $networks = @()
 
 foreach ($ind in $computers)
 {
-    
-    try
-    {
-        $Networks += Get-WmiObject Win32_NetworkAdapterConfiguration -ComputerName $ind -EA SilentlyContinue | select -property DNSHostName, IPAddress, IPSubnet, MACAddress, DefaultIPGateway, DHCPEnabled | ? {$_.IPAddress}
-    }
-    catch
-    {
-        Write-Warning "I could not connect to $ind, please investigate this manually"
-    }
+  if (Test-WSMan $ind) {
+        try
+        {
+            $Networks += Get-WmiObject Win32_NetworkAdapterConfiguration -ComputerName $ind -EA SilentlyContinue | select -property DNSHostName, IPAddress, IPSubnet, MACAddress, DefaultIPGateway, DHCPEnabled | ? {$_.IPAddress}
+        }
+        catch
+        {
+            Write-Warning "I could not connect to $ind, please investigate this manually even though Test-WSMan passed"
+        }
+   }
+   else 
+        { Write-Warning "I could not connect to $ind using Test-WSMan, please investigate this manually" }
 }
 #Super lazy here outputting to csv gave me System.String[] since you could have multiple IP's or subnets on a nic
 #to avoid this problem i just output to table then into a file in txt and manipulate it in excel
