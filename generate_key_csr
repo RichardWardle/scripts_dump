@@ -1,0 +1,32 @@
+Paste the below into csr_details.txt after making your relevant changes. Set you CN and SAN appropriatley
+#####################################################################################
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[ dn ]
+C=AU
+ST=NSW
+L=Sydney
+O=Chatswood
+emailAddress=webmaster@example.com
+CN = web.example.com
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = web.example.com
+DNS.2 = devweb.example.com
+#####################################################################################
+
+Now we need to generate the key
+openssl genrsa -out /root/web.example.com.key 2048
+
+Now we have generated the key we need to create the CSR and where we will reference our csr_generate.txt file
+openssl req -new -key web.example.com.key -out web.example.com.csr -nodes -sha256 -config <(cat csr_details.txt)
+
+Provide this to your AD CS Server https://adcs.example.com/certsrv or run certreq -attrib "CertificateTemplate:webserver" –submit web.example.com.csr
