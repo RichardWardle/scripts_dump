@@ -28,6 +28,9 @@ If you had to apply a setting to all network cards you could right a function th
 ### network_config_dump.ps1
 We had a range of servers that were having there subnet moved from 192.168.5.0/24 to 192.168.4.0/23. We had to change every subnet on all those servers to ensure that it could properly talk to the extended subnet (aka 192.168.5.4/24 had issues talking to 192.168.4.230/23). This script pulled the IP settings for some configurations and allowed us to find which servers we still had to change. We could use it to find systems that had been given out there IP address as per DHCP so we could check to see if there was a reservation for the MAC address or if it could randomly change IP address. Just supply C:\computers.txt with your servers you want to query 
 
+### generate_key_csr
+Basic information (I always seem to forget) for generating my certificate keys/CSR and then pumping it into AD. It also has the config file for specifying the SAN and CN names since they need to be in there so you dont see errors about them missing!
+
 ### map_ad_domains.ps1
 Working with multiple AD controllers and domains isnt the most fun. To help understand a new environment from a where is what in where I wrote this powershell script. You simply run it at the top of your forest and it will map out the forests you have a trust with, it will then also map the subdomains including any trusts they have and domain controllers. It will also help point out the 2 FSMO roles for the forest and then the 3 FSMO roles per domain/sub domain that will be there. This is a pointless script though, Microsoft AD topology toolset will map out Active Directory/Exchange nicely for you all into visio (its like black magic!), link is here: https://www.microsoft.com/en-au/download/details.aspx?id=13380
 
