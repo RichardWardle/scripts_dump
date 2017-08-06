@@ -28,7 +28,7 @@ If you had to apply a setting to all network cards you could right a function th
 ### network_config_dump.ps1
 We had a range of servers that were having there subnet moved from 192.168.5.0/24 to 192.168.4.0/23. We had to change every subnet on all those servers to ensure that it could properly talk to the extended subnet (aka 192.168.5.4/24 had issues talking to 192.168.4.230/23). This script pulled the IP settings for some configurations and allowed us to find which servers we still had to change. We could use it to find systems that had been given out there IP address as per DHCP so we could check to see if there was a reservation for the MAC address or if it could randomly change IP address. Just supply C:\computers.txt with your servers you want to query 
 
-### sensu_streamlined_install
+### sensu_streamlined_install.ps1
 This auto installs sensu on your computer. Requires sensu.msi to be in the C:\ and the C:\opt to not exsist otherwise it will stop. You can change some of the variables inside as required. I will update this to handle passing rabbit server and other details via paramters. It should also be able to dynamically pull a subscriptions list or have one passed to it (auto adding the computer hostname for you so remediation will work). The final problem I have not decided on is the IP address that it should use, currently it pulls the first IP address that it finds regardless of what this is which is not ideal (I should query DNS for this or have it as a paramter that can be passed)!!
 
 ### generate_key_csr
