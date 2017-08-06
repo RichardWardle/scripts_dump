@@ -27,7 +27,7 @@ $transport_config =
         }
     } |  convertto-json
 
-$transport_config
+#$transport_config
 
 #Configuration for the actual client
 $sensu_config = 
@@ -39,13 +39,13 @@ $sensu_config =
         }
     } |  convertto-json
 
-$sensu_config
+#$sensu_config
 
 #This checks if C:\opt exsists, if it does then sensu may already be installed so we will exit otherwise continue
 if (Test-Path C:\opt) 
 {
     Write-Warning "Sensu may be installed since C:\opt exsists, please remove it as this is the default location or rename it"
-    Exit 0
+    Exit 2
 }
 else
 {
@@ -72,5 +72,6 @@ else
     else
     {
         Write-Warning "The installer for sensu is not available at $sensufile"
+        Exit 2
     }
 }
