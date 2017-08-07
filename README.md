@@ -31,6 +31,9 @@ We had a range of servers that were having there subnet moved from 192.168.5.0/2
 ### sensu_streamlined_install.ps1
 This auto installs sensu on your computer. Requires sensu.msi to be in the C:\ and the C:\opt to not exsist otherwise it will stop. You can change some of the variables inside as required. I will update this to handle passing rabbit server and other details via paramters. It should also be able to dynamically pull a subscriptions list or have one passed to it (auto adding the computer hostname for you so remediation will work). The final problem I have not decided on is the IP address that it should use, currently it pulls the first IP address that it finds regardless of what this is which is not ideal (I should query DNS for this or have it as a paramter that can be passed)!!
 
+### sensu_uninstall.ps1
+Basic uninstall script for sensu. Place the name or IP of your server in $sensu_server (inc port). This script was designed to be used with sensu_streamlined_install.ps1. The script does no error handling and blows away C:\opt, it also tries to post a delete message to the sensu server for you to clean it up
+
 ### generate_key_csr
 Basic information (I always seem to forget) for generating my certificate keys/CSR and then pumping it into AD. It also has the config file for specifying the SAN and CN names since they need to be in there so you dont see errors about them missing!
 
