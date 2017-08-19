@@ -36,6 +36,12 @@ $sensu_config =
             name = $fullComputer
             address = $local_ip
             subscriptions = $subs_list
+            keepalive = @{
+                thresholds = @{
+                    warning = '40'
+                    critical = '60'
+                }
+            }
         }
     } |  convertto-json
 
