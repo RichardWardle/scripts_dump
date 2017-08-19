@@ -5,6 +5,11 @@ $grablocal_ip = Get-WmiObject Win32_NetworkAdapterConfiguration -Property IPAddr
 [string]$local_ip = $grablocal_ip[0].IPAddress
 $rabbit_ip = '192.168.4.230'
 $subs_list = "cluster", "prod", $fullComputer, "windows-hosts"
+$user = 'sensu'
+$password = 'secret'
+$vhost = '/sensu'
+$keepalive_warning = '40'
+$keepalive_critical = '60'
 
 #transport configuration for the client to rabbitmq, you can use SSL certs if you want but you will need to ensure they are copied into where ever you place them!
 #I have left $ip as a passable paramter since the sensu rabbitmq server may differ if each datacentre runs its own local instances so you can leverage the
@@ -13,9 +18,9 @@ $transport_config =
     @{
         rabbitmq = @{
             host = $rabbit_ip
-            vhost = '/sensu'
-            user = 'sensu'
-            password = 'secret'
+            vhost = $vhost
+            user = $user
+            password = $password
             #ssl = @{
             #    cert_chain_file = ''
             #    private_key_file  = ''
@@ -26,8 +31,6 @@ $transport_config =
             reconnect_on_error = 'true'
         }
     } |  convertto-json
-
-#$transport_config
 
 #Configuration for the actual client
 $sensu_config = 
@@ -45,13 +48,11 @@ $sensu_config =
         }
     } |  convertto-json
 
-#$sensu_config
-
-#This checks if C:\opt exsists, if it does then sensu may already be installed so we will exit otherwise continue
-if (Test-Path C:\opt) 
+#This checks if C:\opt exsists, if it does then sensu may already be installed OR if its registered in windows
+if ((get-wmiobject Win32_Product | where {$_.Name -eq "Sensu"}) -or (Test-path C:\opt))
 {
-    Write-Warning "Sensu may be installed since C:\opt exsists, please remove it as this is the default location or rename it"
-    Exit 2
+    Write-Warning "Sensu is either already installed (Check Installed Programs) OR C:\opt exsists which means that there are previously files from an old install"
+    Exit 0
 }
 else
 {
@@ -78,6 +79,5 @@ else
     else
     {
         Write-Warning "The installer for sensu is not available at $sensufile"
-        Exit 2
     }
 }
