@@ -46,7 +46,7 @@ $sensu_config =
                 }
             }
         }
-    } |  convertto-json
+    } |  convertto-json -Depth 5
 
 #This checks if C:\opt exsists, if it does then sensu may already be installed OR if its registered in windows
 if ((get-wmiobject Win32_Product | where {$_.Name -eq "Sensu"}) -or (Test-path C:\opt))
@@ -67,6 +67,7 @@ else
 
         Write-output "Create Configuration Files for Sensu"
         mkdir C:\opt\sensu\conf.d\
+        mkdir C:\opt\sensu\plugins\powershell
         $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
         [System.IO.File]::WriteAllLines("C:\opt\sensu\conf.d\transport_config.json", $transport_config, $Utf8NoBomEncoding)
         [System.IO.File]::WriteAllLines("C:\opt\sensu\conf.d\sensu_config.json", $sensu_config, $Utf8NoBomEncoding)
