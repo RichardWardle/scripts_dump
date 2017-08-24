@@ -1,5 +1,7 @@
 
 $global:total_errors=0
+$append="c$\dfsroots"
+[string[]]$roots = \\"server1\","\\server2\"
 
 #This function goes through the passed location and checks to see if there are any files in here. It will not alert to empty directories or directories that are not classified as reparse points
 #the files are then written to output with location, created date, last accessed, length and owner
@@ -24,7 +26,7 @@ try
 {
     #stores all the roots and then goes through each one. If you want to only check a specific root you could pass the parameter in here if you want or specify a domain other than the context of who is running this script
     #we then loop through each root and check to see if it as any files using a recursive loop inside Get-FilesInRoot function
-    $roots= Get-DfsnRoot -Domain $env:USERDNSDOMAIN -ErrorAction stop
+    #$roots= Get-DfsnRoot -Domain $env:USERDNSDOMAIN -ErrorAction stop
     foreach ($indRoot in $roots)
     {
         $path = $indRoot.Path
