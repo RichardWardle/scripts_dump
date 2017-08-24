@@ -29,7 +29,8 @@ try
     #$roots= Get-DfsnRoot -Domain $env:USERDNSDOMAIN -ErrorAction stop
     foreach ($indRoot in $roots)
     {
-        $path = $indRoot.Path
+        #$path = $indRoot.Path
+        $path="$indRoot$append" 
         Write-Output "Check DFSN: $path"
         Get-FilesInRoot($path)
         Write-Output ""
