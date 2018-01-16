@@ -23,7 +23,7 @@ today = str(datetime.date.today()) #This is used for offset calculations through
 file_delay = 600
 
 #Configure logging parameters for logging
-log_location = "/Users/rwardle/Google Drive/python/logs/"+today+".log"
+log_location = ""
 logging.basicConfig(format='%(asctime)s %(name)-20s %(levelname)-5s %(message)s', level=logging.DEBUG, filename=log_location)
 logger = logging.getLogger(__name__)
 
@@ -32,14 +32,14 @@ mode = "azure" # this can either be azure or local
 compare_method = "md5" #md5 or filecmp are acceptable, noting md5 has a performance hit
 
 #define global azure Variables
-azure_account_name = "blob01" #storage account name in azure ###FILL ME IN###
-azure_account_key = "F2hWyt6sK5KDtZYKzWFu7RDid3y05PnFfFk8RHHy+Kn0uUEo8CRdE8OOxxCiSTECkhiVKgm0hvhGR2bOQnEONA==" #Never upload this key anywhere!!!  ###FILL ME IN###
-azure_container = "azureblob02" # blob container name inside your storage account  ###FILL ME IN###
+azure_account_name = "" #storage account name in azure ###FILL ME IN###
+azure_account_key = "" #Never upload this key anywhere!!!  ###FILL ME IN###
+azure_container = "" # blob container name inside your storage account  ###FILL ME IN###
 block_blob_service = BlockBlobService(account_name=azure_account_name, account_key=azure_account_key) #Generates the service we will use
 
 #define local end point
-local_location = "/Users/rwardle/Google Drive/python/files/" #you need a / at the end of this!  ###FILL ME IN###
-local_destination = "/Users/rwardle/Google Drive/python/second/" #you need a / at the end of this!  ###FILL ME IN if you arent using azure###
+local_location = "" #you need a / at the end of this!  ###FILL ME IN###
+local_destination = "" #you need a / at the end of this!  ###FILL ME IN if you arent using azure###
 file_errors = 0
 
 #file variables
