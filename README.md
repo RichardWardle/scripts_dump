@@ -11,6 +11,10 @@ To provide FTP services to clients we used to run two servers in different locat
 
 Note - you are required to enter two passwords, one for the user which is passed as a variable into the script -pass. The other will be a prompt to type it in, this is the same password used for authenticating to both servers. You could add another paramter called -serverPass and then do some thing like: $serverPassSecure = ConvertTo-String "$serverPass" -AsPlainText -Force and then pass that as -password $serverPassSecure in get-credential
 
+### azure/azure_local_cleanup.py
+
+This takes a yaml config file called settings.conf (example one provided). You then provide your retention in settings and it will remove any file older than that in your azure storage or/and in local files provided. Some error handling but it logs everything to file that you can parse or modify as required. 
+
 ### wannacry_check.ps1
 This script checks a list of servers from a specified OU (can be modified to take from a file if needed) and checks if a list of patches are installed and provides some output to a csv file for you to investigate. It was useful for when we had to check if all our servers were patched with this when some systems (alot) were not connected to a WSUS server or sat out in customer environments. To make it easy you specified an OU or a list of computers and then it would go check if the patch was installed, not installed OR if you could not connect. We also needed to know if the patch was installed if we had a reboot for it to take effect.
 
