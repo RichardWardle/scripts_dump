@@ -7,13 +7,8 @@ import os
 import datetime
 import logging
 import platform
-import shutil
-import random
 import time
-import hashlib
-import filecmp
 import sys
-import shutil
 import re
 import yaml
 import pytz
