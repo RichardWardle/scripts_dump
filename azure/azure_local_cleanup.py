@@ -9,13 +9,13 @@ import logging
 import platform
 import time
 import sys
-import re
 import yaml
 import pytz
+import errno
 
 #Configure logging parameters for logging
 today = str(datetime.date.today())
-log_location = "/yourpathhere/"+today+".log" #FILL ME IN
+log_location = "/loglocation/"+today+".log" #FILL ME IN
 logging.basicConfig(format='%(asctime)s %(name)-20s %(levelname)-5s %(message)s', level=logging.INFO, filename=log_location)
 logger = logging.getLogger(__name__)
 
@@ -37,6 +37,7 @@ def handleLocalFiles(dir,file_delay):
 def removeLocalFile(func_source_file):
     global file_errors
     try:
+        print(func_source_file)
         os.remove(func_source_file)
         logger.info(str("removeLocalFile INFO: Removed the following file: "+func_source_file))
     except OSError as e:
@@ -132,18 +133,19 @@ def main(argv):
 
     if mode == "local" or mode == "both":
         for folder in config['local']['folder']:
-            if(check_folder_exists(folder)):
-                handleLocalFiles(folder,config['options']['retention'])
+            if(check_folder_exists(folder['name'])):
+                handleLocalFiles(folder['name'],folder['retention'])
             else:
-                handleExit(str("main Error: "+folder+" does not exsist"),'2','0','0')
+                handleExit(str("main Error: "+str(folder['name'])+" does not exist"),'2','0','0')
     if mode == "azure" or mode == "both":
         for azureAccounts in config['azure']['storage_accounts']:
             azure_pull = setBlobAzure(azureAccounts['name'],azureAccounts['key'])
             for azureContainer in azureAccounts['containers']:
-                current_azure_files = listAzureFiles(azure_pull,azureContainer)
+                current_azure_files = listAzureFiles(azure_pull,azureContainer['container_name'])
                 for item in current_azure_files:
-                    if item[3] > azureAccounts['retention']:
-                        removeAzureFile(azure_pull,azureContainer,item[0])
+                    if item[3] > azureContainer['retention']:
+                        removeAzureFile(azure_pull,azureContainer['container_name'],item[0])
+
 
 if __name__ == "__main__":
    main(sys.argv[1:])
