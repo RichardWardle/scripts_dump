@@ -74,7 +74,7 @@ else
 
         Write-output "Ensure Sensu Service is started after waiting for everything to register (30 seconds)"
         Start-Sleep -Seconds 30
-        Start-Service -DisplayName "Sensu_Client"
+        Start-Service sensu-client
 
     }
     else
