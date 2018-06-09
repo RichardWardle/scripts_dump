@@ -28,7 +28,7 @@ $transport_config =
         }
         transport = @{ 
             name = 'rabbitmq'
-            reconnect_on_error = 'true'
+            reconnect_on_error = true
         }
     } |  convertto-json
 
@@ -41,8 +41,8 @@ $sensu_config =
             subscriptions = $subs_list
             keepalive = @{
                 thresholds = @{
-                    warning = '40'
-                    critical = '60'
+                    warning = 40
+                    critical = 60
                 }
             }
         }
