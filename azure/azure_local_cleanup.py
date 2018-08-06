@@ -157,7 +157,7 @@ def main(argv):
                     if item[3] > azureContainer['retention'] and run == "live": # checks if our files age of last modification is greater than our retention age in seconds
                         removeAzureFile(azure_pull,azureContainer['container_name'],item[0]) # deletes the file
                     elif item[3] > azureContainer['retention'] and run == "test":
-                        logMessage(str("main INFO[not deleted]: Mode: " + run + " File: " + item[0] + "" + str(azureContainer['container_name']) + ""))
+                        logMessage(str("main INFO[not deleted]: Mode: " + run + " File: " + item[0] + " Container: " + str(azureContainer['container_name']) + " File Age: " + str(item[3])))
 
     logMessage("main SUCCESS: We have finished the script")
     sys.exit(0)
