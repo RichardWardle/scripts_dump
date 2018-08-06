@@ -137,7 +137,7 @@ def removeAzureFile(azure_pull,func_container, func_blob_name):
 def main(argv):
     configuration_file = "settings.conf" #sets our config file
     config = getConfigFile(configuration_file) #gets our config file
-
+    run = config['options']['run'] #
     mode = config['options']['mode'] #
     if mode != "azure" and mode != "local" and mode != "both":
         handleExit("main ERROR: No mode set",'2','0','0')
@@ -157,7 +157,7 @@ def main(argv):
                     if item[3] > azureContainer['retention'] and run == "live": # checks if our files age of last modification is greater than our retention age in seconds
                         removeAzureFile(azure_pull,azureContainer['container_name'],item[0]) # deletes the file
                     elif item[3] > azureContainer['retention'] and run == "test":
-                        logMessage(str("main INFO[not deleted]: Mode: " + run + " File: " + item[0] + "" + str(azu) + ""))
+                        logMessage(str("main INFO[not deleted]: Mode: " + run + " File: " + item[0] + "" + str(azureContainer['container_name']) + ""))
 
     logMessage("main SUCCESS: We have finished the script")
     sys.exit(0)
