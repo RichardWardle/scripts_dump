@@ -1,0 +1,9 @@
+sudo rpm -Uvh https://yum.puppet.com/puppet6/puppet6-release-el-7.noarch.rpm
+sudo yum install -y puppet
+systemctl enable puppet
+systemctl start puppet
+/opt/puppetlabs/bin/puppet agent --server *puppetservername* --waitforcert 60 --test
+
+on the PE server run (below commands are 6.0+)
+puppetserver ca list --all
+puppetserver ca sign --certname NODENAMEHERE
