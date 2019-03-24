@@ -1,8 +1,18 @@
+RHEL
 sudo rpm -Uvh https://yum.puppet.com/puppet6/puppet6-release-el-7.noarch.rpm
 sudo yum install -y puppet
 systemctl enable puppet
 systemctl start puppet
 /opt/puppetlabs/bin/puppet agent --server *puppetservername* --waitforcert 60 --test
+
+Ubuntu
+wget https://apt.puppetlabs.com/puppet6-release-bionic.deb
+sudo apt-get update
+sudo apt-get install puppet-agent
+systemctl enable puppet
+systemctl start puppet
+/opt/puppetlabs/bin/puppet agent --server *puppetservername* --waitforcert 60 --test
+
 
 on the PE server run (below commands are 6.0+)
 puppetserver ca list --all
