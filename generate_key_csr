@@ -30,3 +30,6 @@ Now we have generated the key we need to create the CSR and where we will refere
 openssl req -new -key web.example.com.key -out web.example.com.csr -nodes -sha256 -config <(cat csr_details.txt)
 
 Provide this to your AD CS Server https://adcs.example.com/certsrv or run certreq -attrib "CertificateTemplate:webserver" –submit web.example.com.csr
+
+validate the cert using the below
+openssl req -text -noout -verify -in $csrnamehere.csr
