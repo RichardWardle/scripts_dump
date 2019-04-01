@@ -7,6 +7,7 @@ systemctl start puppet
 
 Ubuntu
 wget https://apt.puppetlabs.com/puppet6-release-bionic.deb
+sudo dpkg -I puppet6-release-bionic.deb
 sudo apt-get update
 sudo apt-get install puppet-agent
 systemctl enable puppet
