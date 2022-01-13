@@ -24,7 +24,7 @@ DNS.2 = devweb.example.com
 #####################################################################################
 
 Now we need to generate the key
-openssl genrsa -out /root/web.example.com.key 2048
+openssl genrsa -out web.example.com.key 2048
 
 Now we have generated the key we need to create the CSR and where we will reference our csr_generate.txt file
 openssl req -new -key web.example.com.key -out web.example.com.csr -nodes -sha256 -config <(cat csr_details.txt)
@@ -33,3 +33,7 @@ Provide this to your AD CS Server https://adcs.example.com/certsrv or run certre
 
 validate the cert using the below
 openssl req -text -noout -verify -in $csrnamehere.csr
+
+turn this into a pfx - after running you will be prompted for a passcode to secure it
+openssl pkcs12 -inkey web.example.com.key -in web.example.com.crt -export -out web.example.com.pfx
+
